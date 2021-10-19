@@ -1,0 +1,20 @@
+#LV 증설 
+lvextend /dev/rootvg/rootlv -l +2560 ( +2560:10G, +512: 2G, +256: 1G )
+#포멧 
+resize2fs /dev/mapper/rootvg-rootlv
+#포멧
+xfs_growfs /dev/mapper/rootvg-rootlv
+#LV 축소
+lvm lvreduce -L10G /dev/rootvg/rootlv
+
+
+pvcreate /dev/sbb1
+
+vgcreate myvg /dev/sbb1
+
+lvcreate -n dtlv -L 7GB myvg
+
+lvcreate -n bklv -l 100%FREE myvg
+
+가니
+4WKSK
